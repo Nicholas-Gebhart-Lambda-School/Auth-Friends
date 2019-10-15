@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const LoginForm = props => {
-  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ username: '', password: '' });
 
   const changeHandler = event => {

@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import getData from '../../services/getData';
+import deleteFriend from '../../services/deleteFriend';
 
 import AddFriend from './AddFriend';
+import FriendCard from './FriendCard';
 
-const FriendsDashboard = props => {
-  const [loading, setLoading] = useState(true);
+const FriendsDashboard = () => {
   const [friends, setFriends] = useState([]);
+
   useEffect(() => {
     getData().then(res => setFriends(res.data));
   }, [friends]);
+
+  const deleteBud = id => {
+    deleteFriend(id);
+    // Update state immediately for snappier app
+    setFriends(friends.filter(friend => friend.id !== id));
+  };
 
   return (
     <>
@@ -18,7 +26,18 @@ const FriendsDashboard = props => {
         <div>
           <AddFriend />
 
-          <pre>{JSON.stringify(friends, null, 2)}</pre>
+          {friends.map(friend => {
+            return (
+              <FriendCard
+                key={friend.id}
+                id={friend.id}
+                name={friend.name}
+                email={friend.email}
+                age={friend.age}
+                deleteBud={deleteBud}
+              />
+            );
+          })}
         </div>
       )}
     </>

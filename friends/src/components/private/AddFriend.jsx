@@ -14,6 +14,7 @@ const AddFriend = () => {
       onSubmit={e => {
         e.preventDefault();
         addFriend(friend);
+        setFriend({ name: '', age: 0, email: '' });
       }}
     >
       <input
