@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
-const LoginForm = () => {
+const LoginForm = props => {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: '', password: '' });
+  const [form, setForm] = useState({ username: '', password: '' });
 
   const changeHandler = event => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   };
 
-  const login = e => {
+  const handleLogin = e => {
+    console.log(form);
     e.preventDefault();
     axiosWithAuth()
-      .post('/api/login', this.state.credentials)
+      .post('/api/login', form)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        this.props.history.push('/protected');
+        props.history.push('/private');
       })
       .catch(err => console.log(err.response));
   };
 
   return (
-    <form>
+    <form onSubmit={handleLogin}>
       <input
         type="text"
-        value={form.name}
-        name="name"
+        value={form.username}
+        name="username"
         onChange={changeHandler}
       />
       <input

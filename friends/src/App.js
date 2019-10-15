@@ -12,7 +12,7 @@ const App = () => (
   <>
     <Navigation />
     <Switch>
-      <PrivateRoute path="/protected" component={FriendsDashboard} />
+      <PrivateRoute path="/private" component={FriendsDashboard} />
       <Route path="/login" component={LoginForm} />
       <Route exact path="/" component={LandingPage} />
     </Switch>
